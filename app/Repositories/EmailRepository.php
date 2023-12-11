@@ -19,7 +19,8 @@ class EmailRepository implements EmailRepositoryInterface{
     public function find($id)
     {
         // TODO: Implement find() method.
-        return Email::findOrFail($id)->paginate(15);
+        $email = Email::all();
+        return $email->find($id);
     }
 
     public function destroy($id)
@@ -40,10 +41,16 @@ class EmailRepository implements EmailRepositoryInterface{
 
     public function update(EditRequest $request, $id)
     {
-        $email = Email::findOrFail($id);
-        $email->fill($request->validated());
+        // TODO: Implement update() method.
+        $email = $this->find($id);
         $email->setIsActiveAttribute($request->get('is_active'));
+        $email->fill($request->validated());
         $email->save();
     }
 
+    public function findByUserId($id)
+    {
+        // TODO: Implement findByUserId() method.
+        return Email::where('created_by',$id)->paginate(15);
+    }
 }

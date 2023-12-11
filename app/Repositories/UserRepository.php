@@ -42,7 +42,7 @@ class UserRepository implements UserRepositoryInterface{
     {
         // TODO: Implement find() method.
         $user = User::all();
-        return $user->findOrFail($id);
+        return $user->find($id);
     }
 
     public function destroy($id): int

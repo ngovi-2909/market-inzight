@@ -18,7 +18,8 @@ class ProxyRepository implements ProxyRepositoryInterface{
     public function find($id)
     {
         // TODO: Implement find() method.
-        return Proxy::findOrFail($id)->paginate(15);
+        $proxy = $this->all();
+        return $proxy->find($id);
     }
 
     public function destroy($id): int
@@ -32,7 +33,6 @@ class ProxyRepository implements ProxyRepositoryInterface{
         // TODO: Implement store() method.
         $proxy = new Proxy();
         $proxy->created_by = $id;
-        $proxy->setIsActiveAttribute($request->get('is_active'));
         $proxy->fill($request->validated());
         $proxy->save();
     }
@@ -40,10 +40,15 @@ class ProxyRepository implements ProxyRepositoryInterface{
     public function update(EditRequest $request, $id): void
     {
         // TODO: Implement update() method.
-        $proxy = Proxy::findOrFail($id);
+        $proxy = $this->find($id);
         $proxy->setIsActiveAttribute($request->get('is_active'));
         $proxy->fill($request->validated());
         $proxy->save();
     }
 
+    public function findProxyByUser($id)
+    {
+        // TODO: Implement findProxyByUser() method.
+        return Proxy::where('created_by', $id)->paginate(15);
+    }
 }

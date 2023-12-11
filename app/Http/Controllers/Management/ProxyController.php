@@ -19,7 +19,7 @@ class ProxyController extends Controller
     public function index(){
         if(!auth()->user()->is_super_user)
         {
-            $data = $this->proxyRepository->find(auth()->user()->id);
+            $data = $this->proxyRepository->findProxyByUser(auth()->user()->id);
         }else{
             $data = $this->proxyRepository->all();
         }
