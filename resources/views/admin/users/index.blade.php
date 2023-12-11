@@ -1,7 +1,7 @@
 {{--Users Index--}}
 @extends('layouts.master')
 @section('content')
-    @include('super-user.users.actions.add-users')
+    @include('admin.users.actions.add-users')
     <div class="card">
         <div class="card-body">
 
@@ -16,14 +16,14 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>first_name</th>
-                        <th>last_name</th>
-                        <th>email</th>
-                        <th>is_super_user</th>
-                        <th>is_active</th>
-                        <th>created_at</th>
-                        <th>updated_at</th>
-                        <th>action</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Is Super User</th>
+                        <th>Is Active</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -62,14 +62,15 @@
                                 <button type="button" data-toggle="modal" data-target="#delete{{$data->id}}"
                                         class="btn btn-danger text-white">Delete
                                 </button>
-                                @include('super-user.users.actions.edit-users')
-                                @include('super-user.users.actions.delete-users')
+                                @include('admin.users.actions.edit-users')
+                                @include('admin.users.actions.delete-users')
                             </td>
                         </tr>
                     @endforeach
 
                     </tbody>
                 </table>
+                {{$datas->links()}}
             </div>
         </div>
     </div>
@@ -77,15 +78,16 @@
 @endsection
 @section('users')
     <script>
-        function clearMessage(first_name, last_name, password, phone){
+        function clearMessage(first_name, last_name, password, phone) {
             first_name.innerHTML = "";
             last_name.innerHTML = "";
             password.innerHTML = "";
             phone.innerHTML = "";
         }
-        function validateUsers(id) {
 
-            if(!Number.isInteger(id)){
+        function userValidate(id) {
+
+            if (!Number.isInteger(id)) {
                 id = "";
             }
 

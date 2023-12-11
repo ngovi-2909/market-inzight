@@ -2,7 +2,7 @@
 <div class="modal fade" id="addUserModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form class="forms-sample" action="{{route('users.store')}}" method="POST" onsubmit="return validateUsers()">
+            <form class="forms-sample" action="{{route('users.store')}}" method="POST" onsubmit="return userValidate()">
                 @csrf
                 @method('POST')
             <div class="modal-body">

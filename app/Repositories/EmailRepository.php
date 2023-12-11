@@ -13,7 +13,7 @@ class EmailRepository implements EmailRepositoryInterface{
     public function all()
     {
         // TODO: Implement all() method.
-        return Email::all();
+        return Email::paginate(15);
     }
 
     public function find($id)
@@ -34,6 +34,7 @@ class EmailRepository implements EmailRepositoryInterface{
         // TODO: Implement store() method.
         $email = new Email();
         $email->created_by = $id;
+        $email->setIsActiveAttribute($request->get('is_active'));
         $email->fill($request->validated());
         $email->save();
     }
@@ -50,6 +51,6 @@ class EmailRepository implements EmailRepositoryInterface{
     public function findByUserId($id)
     {
         // TODO: Implement findByUserId() method.
-        return Email::where('created_by',$id)->get();
+        return Email::where('created_by',$id)->paginate(15);
     }
 }

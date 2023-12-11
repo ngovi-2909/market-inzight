@@ -2,7 +2,7 @@
 <div class="modal fade" id="addProxyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form class="forms-sample" action="{{route('proxies.store')}}" method="POST" onsubmit="return proxies_validate()">
+            <form class="forms-sample" action="{{route('proxies.store')}}" method="POST" onsubmit="return proxyValidate()">
                 @csrf
                 @method('POST')
                 <div class="modal-body">

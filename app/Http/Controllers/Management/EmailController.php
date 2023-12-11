@@ -20,12 +20,10 @@ class EmailController extends Controller
     public function index(){
         if(!auth()->user()->is_super_user){
             $data = $this->emailRepository->findByUserId(auth()->user()->id);
-            return view('user.emails.index', [
-                'datas'=>$data,
-            ]);
+        }else{
+            $data = $this->emailRepository->all();
         }
-        $data = $this->emailRepository->all();
-        return view('super-user.emails.index', [
+        return view('admin.emails.index', [
             'datas'=>$data,
         ]);
     }

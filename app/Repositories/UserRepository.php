@@ -11,13 +11,15 @@ class UserRepository implements UserRepositoryInterface{
     public function all()
     {
         // TODO: Implement all() method.
-        return User::all();
+        return User::paginate(15);
     }
 
     public function store(StoreRequest $request): void
     {
         // TODO: Implement store() method.
         $user = new User();
+        $user->setCheckBoxAttribute('is_super_user', $request->get('is_super_user'));
+        $user->setCheckBoxAttribute('is_active', $request->get('is_active'));
         $user->fill($request->validated());
         $user->setHashPasswordAttribute($user->password);
         $user->save();

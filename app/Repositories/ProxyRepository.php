@@ -12,7 +12,7 @@ class ProxyRepository implements ProxyRepositoryInterface{
     public function all()
     {
         // TODO: Implement all() method.
-        return Proxy::all();
+        return Proxy::paginate(15);
     }
 
     public function find($id)
@@ -33,6 +33,7 @@ class ProxyRepository implements ProxyRepositoryInterface{
         // TODO: Implement store() method.
         $proxy = new Proxy();
         $proxy->created_by = $id;
+        $proxy->setIsActiveAttribute($request->get('is_active'));
         $proxy->fill($request->validated());
         $proxy->save();
     }
@@ -49,6 +50,6 @@ class ProxyRepository implements ProxyRepositoryInterface{
     public function findProxyByUser($id)
     {
         // TODO: Implement findProxyByUser() method.
-        return Proxy::where('created_by', $id)->get();
+        return Proxy::where('created_by', $id)->paginate(15);
     }
 }

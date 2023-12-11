@@ -2,7 +2,7 @@
 @php use App\Repositories\UserRepository; @endphp
 @extends('layouts.master')
 @section('content')
-    @include('super-user.emails.actions.add-emails')
+    @include('admin.emails.actions.add-emails')
     <div class="card">
         <div class="card-body">
             <button class="btn btn-primary text-white me-0" style="float: right" data-toggle="modal"
@@ -16,13 +16,13 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>email</th>
-                        <th>is_active</th>
-                        <th>expired_time</th>
-                        <th>created_by</th>
-                        <th>created_at</th>
-                        <th>updated_at</th>
-                        <th>action</th>
+                        <th>Email</th>
+                        <th>Is Active</th>
+                        <th>Expired Time</th>
+                        <th>Created By</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -50,15 +50,18 @@
                                 <button type="button" data-toggle="modal" data-target="#delete{{$data->id}}"
                                         class="btn btn-danger text-white">Delete
                                 </button>
-                                @include('super-user.emails.actions.edit-emails')
-                                @include('super-user.emails.actions.delete-emails')
+                                @include('admin.emails.actions.edit-emails')
+                                @include('admin.emails.actions.delete-emails')
                             </td>
                         </tr>
+
                     @endforeach
 
                     </tbody>
                 </table>
+                {{$datas->links()}}
             </div>
+
         </div>
     </div>
 
@@ -83,8 +86,8 @@
 
 @section('emails')
     <script>
-        function emails_validate(id) {
-            if(!Number.isInteger(id)){
+        function emailValidate(id) {
+            if (!Number.isInteger(id)) {
                 id = "";
             }
             const password = document.getElementById("password_" + id);

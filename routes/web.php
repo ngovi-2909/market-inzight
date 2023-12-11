@@ -4,7 +4,6 @@ use App\Http\Controllers\Management\EmailController;
 use App\Http\Controllers\Management\ProxyController;
 use App\Http\Controllers\Management\UserController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\NonAdmin\NonAdminEmailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 //SuperUser management
 Route::middleware(['auth'])->group(function () {
-    // User is authentication and has super-user role
+    // User is authentication and has admin role
     Route::resource('/users', UserController::class);
     Route::resource('/emails', EmailController::class);
     Route::resource('/proxies', ProxyController::class);

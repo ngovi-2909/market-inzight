@@ -27,7 +27,7 @@ class Email extends Model
     }
     public function getExpiredTimeAttribute($value): string
     {
-        return (new Carbon($value))->format('Y-m-d');
+        return ($value != null)?(new Carbon($value))->format('Y-m-d'):"";
     }
 
 }

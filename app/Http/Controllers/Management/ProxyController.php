@@ -20,17 +20,13 @@ class ProxyController extends Controller
         if(!auth()->user()->is_super_user)
         {
             $data = $this->proxyRepository->findProxyByUser(auth()->user()->id);
-            return view(
-                'user.proxies.index', [
-                'datas'=>$data,
-            ]);
         }else{
             $data = $this->proxyRepository->all();
-            return view(
-                'super-user.proxies.index', [
-                'datas'=>$data,
-            ]);
         }
+        return view(
+            'admin.proxies.index', [
+            'datas'=>$data,
+        ]);
 
     }
     public function store(StoreRequest $request){

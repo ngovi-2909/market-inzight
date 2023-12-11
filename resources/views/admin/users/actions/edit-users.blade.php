@@ -2,7 +2,7 @@
 <div class="modal fade" id="edit{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form class="forms-sample" action="{{route('users.update', $data->id)}}" method="POST" onsubmit="return validateUsers({{$data->id}})">
+            <form class="forms-sample" action="{{route('users.update', $data->id)}}" method="POST" onsubmit="return userValidate({{$data->id}})">
                 @csrf
                 @method('PUT')
                 <div class="modal-body">

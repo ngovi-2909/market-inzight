@@ -2,7 +2,7 @@
 <div class="modal fade" id="addEmailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form class="forms-sample" action="{{route('emails.store')}}" method="POST" onsubmit="return emails_validate()">
+            <form class="forms-sample" action="{{route('emails.store')}}" method="POST" onsubmit="return emailValidate()">
                 @csrf
                 @method('POST')
                 <div class="modal-body">
