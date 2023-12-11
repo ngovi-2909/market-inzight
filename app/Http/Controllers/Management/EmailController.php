@@ -19,7 +19,7 @@ class EmailController extends Controller
     }
     public function index(){
         if(!auth()->user()->is_super_user){
-            $data = $this->emailRepository->findByUserId(auth()->user()->id);
+            $data = $this->emailRepository->find(auth()->user()->id);
         }else{
             $data = $this->emailRepository->all();
         }
