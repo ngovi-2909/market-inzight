@@ -19,13 +19,11 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
-            $table->longText('password');
+            $table->string('password');
             $table->string('phone')->nullable();
             $table->boolean('is_super_user')->nullable();
             $table->boolean('is_active')->nullable();
             $table->timestamps();
-            //$table->foreignId('id')->constrained('emails', 'created_by');
-            //$table->foreignId('id')->constrained('proxies', 'created_by');
         });
     }
 

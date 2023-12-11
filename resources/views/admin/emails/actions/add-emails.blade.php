@@ -20,7 +20,7 @@
 
                     <div class="form-group">
                         <label for="expired_time">Expired Time</label>
-                        <input type="date" class="form-control" id="expired_time" name="expired_time" value="{{old('expired_time')}}" placeholder="Expired Time">
+                        <input type="date" class="form-control" id="expired_time_" name="expired_time" value="{{old('expired_time')}}" placeholder="Expired Time">
                     </div>
                     <div class="form-check form-check-flat form-check-primary">
                         <label class="form-check-label">
