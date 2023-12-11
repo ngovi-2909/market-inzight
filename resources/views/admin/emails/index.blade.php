@@ -28,7 +28,11 @@
                     <tbody>
                     @foreach($datas as $data)
                         <tr>
-                            <td>{{$data->id}}</td>
+                            @if($data->is_super_user)
+                                <td>{{$data->id}}</td>
+                            @else
+                                <td>{{$loop->index+1}}</td>
+                            @endif
                             <td>{{$data->email}}</td>
                             @if($data->is_active)
                                 <td><label
