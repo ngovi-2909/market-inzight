@@ -7,13 +7,13 @@
             "mi\\crud\\": "src/"
         }
     },
-     "minimum-stability": "dev",
     "authors": [
         {
             "name": "vi.ngo",
             "email": "ngovi290910@gmail.com"
         }
     ],
+     "minimum-stability": "dev",
     "require": {},
     "extra": {
         "laravel": {
