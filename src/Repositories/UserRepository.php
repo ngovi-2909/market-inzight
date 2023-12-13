@@ -1,10 +1,10 @@
 <?php
-namespace MI\Crud\Repositories;
+namespace mi\crud\Repositories;
 
-use MI\Crud\Contracts\Repositories\UserRepositoryInterface;
-use MI\Crud\Models\User;
-use MI\Crud\Requests\User\EditRequest;
-use MI\Crud\Requests\User\StoreRequest;
+use mi\crud\Contracts\Repositories\UserRepositoryInterface;
+use mi\crud\Models\User;
+use mi\crud\Requests\User\EditRequest;
+use mi\crud\Requests\User\StoreRequest;
 
 class UserRepository implements UserRepositoryInterface{
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace MI\Crud\Http\Controllers;
+namespace mi\crud\Http\Controllers;
 
-use MI\Crud\Requests\User\StoreRequest;
+use mi\crud\Requests\User\StoreRequest;
 
-use MI\Crud\Repositories\UserRepository;
+use mi\crud\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -19,13 +19,13 @@ class HomeController extends Controller
     }
     public function index()
     {
-        return view('Crud::layouts.master');
+        return view('crud::layouts.master');
     }
     public function getLogin(){
-        return view('Crud::authentication.login');
+        return view('crud::authentication.login');
     }
     public function getSignup(){
-        return view('Crud::authentication.register');
+        return view('crud::authentication.register');
     }
 
     public function login(Request $request){

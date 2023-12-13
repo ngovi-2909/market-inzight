@@ -1,8 +1,8 @@
 <?php
-namespace MI\Crud\Contracts\Repositories;
+namespace mi\crud\Contracts\Repositories;
 
-use MI\Crud\Requests\User\EditRequest;
-use MI\Crud\Requests\User\StoreRequest;
+use mi\crud\Requests\User\EditRequest;
+use mi\crud\Requests\User\StoreRequest;
 
 interface UserRepositoryInterface extends AbstractRepositoryInterface {
     public function store(StoreRequest $request);

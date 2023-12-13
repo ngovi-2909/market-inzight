@@ -1,9 +1,9 @@
 <?php
-namespace MI\Crud\Repositories;
+namespace mi\crud\Repositories;
 
-use MI\Crud\Contracts\Repositories\EmailRepositoryInterface;
-use MI\Crud\Models\Email;
-use MI\Crud\Requests\Email\EditRequest;
+use mi\crud\Contracts\Repositories\EmailRepositoryInterface;
+use mi\crud\Models\Email;
+use mi\crud\Requests\Email\EditRequest;
 
 
 class EmailRepository implements EmailRepositoryInterface{

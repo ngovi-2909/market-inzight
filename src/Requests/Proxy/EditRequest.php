@@ -1,6 +1,6 @@
 <?php
 
-namespace MI\Crud\Requests\Proxy;
+namespace mi\crud\Requests\Proxy;
 
 use Illuminate\Foundation\Http\FormRequest;
 

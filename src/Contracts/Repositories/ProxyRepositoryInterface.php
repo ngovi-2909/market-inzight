@@ -1,8 +1,8 @@
 <?php
-namespace MI\Crud\Contracts\Repositories;
+namespace mi\crud\Contracts\Repositories;
 
-use MI\Crud\Requests\Proxy\EditRequest;
-use MI\Crud\Requests\Proxy\StoreRequest;
+use mi\crud\Requests\Proxy\EditRequest;
+use mi\crud\Requests\Proxy\StoreRequest;
 
 interface ProxyRepositoryInterface extends AbstractRepositoryInterface{
     public function store(StoreRequest $request, $id);

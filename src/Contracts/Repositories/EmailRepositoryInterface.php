@@ -1,9 +1,9 @@
 <?php
-namespace MI\Crud\Contracts\Repositories;
+namespace mi\crud\Contracts\Repositories;
 
 
-use MI\Crud\Requests\Email\EditRequest;
-use MI\Crud\Requests\Email\StoreRequest;
+use mi\crud\Requests\Email\EditRequest;
+use mi\crud\Requests\Email\StoreRequest;
 
 interface EmailRepositoryInterface extends AbstractRepositoryInterface{
     public function store(StoreRequest $request, $id);

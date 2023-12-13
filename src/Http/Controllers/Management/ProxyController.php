@@ -1,11 +1,11 @@
 <?php
 
-namespace MI\Crud\Http\Controllers\Management;
+namespace mi\crud\Http\Controllers\Management;
 
-use MI\Crud\Http\Controllers\Controller;
-use MI\Crud\Requests\Proxy\EditRequest;
-use MI\Crud\Requests\Proxy\StoreRequest;
-use MI\Crud\Repositories\ProxyRepository;
+use mi\crud\Http\Controllers\Controller;
+use mi\crud\Requests\Proxy\EditRequest;
+use mi\crud\Requests\Proxy\StoreRequest;
+use mi\crud\Repositories\ProxyRepository;
 use Illuminate\Http\Request;
 
 class ProxyController extends Controller
@@ -24,7 +24,7 @@ class ProxyController extends Controller
             $data = $this->proxyRepository->all();
         }
         return view(
-            'Crud::admin.proxies.index', [
+            'crud::admin.proxies.index', [
             'datas'=>$data,
         ]);
 

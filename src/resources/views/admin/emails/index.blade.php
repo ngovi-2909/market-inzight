@@ -1,8 +1,8 @@
 {{--Emails Index--}}
-@php use MI\Crud\Repositories\UserRepository; @endphp
-@extends('Crud::layouts.master')
+@php use mi\crud\Repositories\UserRepository; @endphp
+@extends('crud::layouts.master')
 @section('content')
-    @include('Crud::admin.emails.actions.add-emails')
+    @include('crud::admin.emails.actions.add-emails')
     <div class="card">
         <div class="card-body">
             <button class="btn btn-primary text-white me-0" style="float: right" data-toggle="modal"
@@ -54,8 +54,8 @@
                                 <button type="button" data-toggle="modal" data-target="#delete{{$data->id}}"
                                         class="btn btn-danger text-white">Delete
                                 </button>
-                                @include('Crud::admin.emails.actions.edit-emails')
-                                @include('Crud::admin.emails.actions.delete-emails')
+                                @include('crud::admin.emails.actions.edit-emails')
+                                @include('crud::admin.emails.actions.delete-emails')
                             </td>
                         </tr>
 

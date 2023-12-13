@@ -25,11 +25,11 @@
 
 <div class="container-scroller">
     <!-- header -->
-    @include('Crud::layouts.partials.header')
+    @include('crud::layouts.partials.header')
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
         <!-- settings panel -->
-            @include('Crud::layouts.partials.settings-panel')
+            @include('crud::layouts.partials.settings-panel')
 
         <div id="right-sidebar" class="settings-panel">
             <i class="settings-close ti-close"></i>
@@ -46,7 +46,7 @@
         </div>
 
         <!-- sidebar -->
-            @include('Crud::layouts.partials.sidebar')
+            @include('crud::layouts.partials.sidebar')
 
         <!-- features menu -->
         <div class="main-panel">
@@ -89,7 +89,7 @@
             </div>
 
             <!-- footer -->
-                @include('Crud::layouts.partials.footer')
+                @include('crud::layouts.partials.footer')
         </div>
 
     </div>

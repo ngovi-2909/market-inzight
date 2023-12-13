@@ -1,8 +1,8 @@
 {{--Proxies Index--}}
-@php use MI\Crud\Repositories\UserRepository; @endphp
-@extends('Crud::layouts.master')
+@php use mi\crud\Repositories\UserRepository; @endphp
+@extends('crud::layouts.master')
 @section('content')
-    @include('Crud::admin.proxies.actions.add-proxies')
+    @include('crud::admin.proxies.actions.add-proxies')
     <div class="card">
         <div class="card-body">
             <button class="btn btn-primary text-white me-0" style="float: right" data-toggle="modal"
@@ -55,8 +55,8 @@
                                 <button type="button" data-toggle="modal" data-target="#delete{{$data->id}}"
                                         class="btn btn-danger text-white">Delete
                                 </button>
-                                @include('Crud::admin.proxies.actions.edit-proxies')
-                                @include('Crud::admin.proxies.actions.delete-proxies')
+                                @include('crud::admin.proxies.actions.edit-proxies')
+                                @include('crud::admin.proxies.actions.delete-proxies')
                             </td>
                         </tr>
                     @endforeach

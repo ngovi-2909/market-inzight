@@ -1,6 +1,6 @@
 <?php
 
-namespace MI\Crud\Http\Controllers;
+namespace mi\crud\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;

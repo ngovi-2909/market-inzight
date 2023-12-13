@@ -1,7 +1,7 @@
 {{--Users Index--}}
-@extends('Crud::layouts.master')
+@extends('crud::layouts.master')
 @section('content')
-    @include('Crud::admin.users.actions.add-users')
+    @include('crud::admin.users.actions.add-users')
     <div class="card">
         <div class="card-body">
 
@@ -62,8 +62,8 @@
                                 <button type="button" data-toggle="modal" data-target="#delete{{$data->id}}"
                                         class="btn btn-danger text-white">Delete
                                 </button>
-                                @include('Crud::admin.users.actions.edit-users')
-                                @include('Crud::admin.users.actions.delete-users')
+                                @include('crud::admin.users.actions.edit-users')
+                                @include('crud::admin.users.actions.delete-users')
                             </td>
                         </tr>
                     @endforeach

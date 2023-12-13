@@ -1,6 +1,6 @@
 <?php
 
-namespace MI\Crud\Requests\User;
+namespace mi\crud\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 

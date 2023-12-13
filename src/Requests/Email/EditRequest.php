@@ -1,6 +1,6 @@
 <?php
 
-namespace MI\Crud\Requests\Email;
+namespace mi\crud\Requests\Email;
 
 use Illuminate\Foundation\Http\FormRequest;
 

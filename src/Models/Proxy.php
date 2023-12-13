@@ -1,6 +1,6 @@
 <?php
 
-namespace MI\Crud\Models;
+namespace mi\crud\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

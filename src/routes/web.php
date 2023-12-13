@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use MI\Crud\Http\Controllers\HomeController;
-use MI\Crud\Http\Controllers\Management\EmailController;
-use MI\Crud\Http\Controllers\Management\ProxyController;
-use MI\Crud\Http\Controllers\Management\UserController;
+use mi\crud\Http\Controllers\HomeController;
+use mi\crud\Http\Controllers\Management\EmailController;
+use mi\crud\Http\Controllers\Management\ProxyController;
+use mi\crud\Http\Controllers\Management\UserController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('web');

@@ -4,7 +4,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "MI\\Crud\\": "src/"
+            "mi\\crud\\": "src/"
         }
     },
     "authors": [
@@ -18,7 +18,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "MI\\Crud\\CrudServiceProvider"
+                "mi\\crud\\CrudServiceProvider"
             ]
         }
     }

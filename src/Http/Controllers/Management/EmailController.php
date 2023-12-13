@@ -1,13 +1,13 @@
 <?php
 
-namespace MI\Crud\Http\Controllers\Management;
+namespace mi\crud\Http\Controllers\Management;
 
-use MI\Crud\Http\Controllers\Controller;
-use MI\Crud\Requests\Email\EditRequest;
-use MI\Crud\Requests\Email\StoreRequest;
-use MI\Crud\Models\Email;
-use MI\Crud\Models\User;
-use MI\Crud\Repositories\EmailRepository;
+use mi\crud\Http\Controllers\Controller;
+use mi\crud\Requests\Email\EditRequest;
+use mi\crud\Requests\Email\StoreRequest;
+use mi\crud\Models\Email;
+use mi\crud\Models\User;
+use mi\crud\Repositories\EmailRepository;
 use Illuminate\Http\Request;
 
 class EmailController extends Controller
@@ -23,7 +23,7 @@ class EmailController extends Controller
         }else{
             $data = $this->emailRepository->all();
         }
-        return view('Crud::admin.emails.index', [
+        return view('crud::admin.emails.index', [
             'datas'=>$data,
         ]);
     }

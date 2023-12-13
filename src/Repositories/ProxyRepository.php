@@ -1,10 +1,10 @@
 <?php
-namespace MI\Crud\Repositories;
+namespace mi\crud\Repositories;
 
-use MI\Crud\Contracts\Repositories\ProxyRepositoryInterface;
-use MI\Crud\Models\Proxy;
-use MI\Crud\Requests\Proxy\EditRequest;
-use MI\Crud\Requests\Proxy\StoreRequest;
+use mi\crud\Contracts\Repositories\ProxyRepositoryInterface;
+use mi\crud\Models\Proxy;
+use mi\crud\Requests\Proxy\EditRequest;
+use mi\crud\Requests\Proxy\StoreRequest;
 
 class ProxyRepository implements ProxyRepositoryInterface{
 

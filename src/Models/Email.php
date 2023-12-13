@@ -1,8 +1,8 @@
 <?php
 
-namespace MI\Crud\Models;
+namespace mi\crud\Models;
 
-use MI\Crud\Http\Controllers\Management\UserController;
+use mi\crud\Http\Controllers\Management\UserController;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

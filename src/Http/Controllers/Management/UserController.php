@@ -1,11 +1,11 @@
 <?php
 
-namespace MI\Crud\Http\Controllers\Management;
+namespace mi\crud\Http\Controllers\Management;
 
-use MI\Crud\Contracts\Repositories\UserRepositoryInterface;
-use MI\Crud\Http\Controllers\Controller;
-use MI\Crud\Requests\User\EditRequest;
-use MI\Crud\Requests\User\StoreRequest;
+use mi\crud\Contracts\Repositories\UserRepositoryInterface;
+use mi\crud\Http\Controllers\Controller;
+use mi\crud\Requests\User\EditRequest;
+use mi\crud\Requests\User\StoreRequest;
 
 class UserController extends Controller
 {
@@ -17,7 +17,7 @@ class UserController extends Controller
 
     public function index(){
         $data = $this->userRepository->all();
-        return view('Crud::admin.users.index', [
+        return view('crud::admin.users.index', [
             'datas'=>$data,
         ]);
     }

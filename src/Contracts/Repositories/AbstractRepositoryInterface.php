@@ -1,5 +1,5 @@
 <?php
-namespace MI\Crud\Contracts\Repositories;
+namespace mi\crud\Contracts\Repositories;
 
 
 interface AbstractRepositoryInterface{
