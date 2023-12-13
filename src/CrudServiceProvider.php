@@ -12,7 +12,6 @@ class CrudServiceProvider extends ServiceProvider{
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
         $this->publishes([
             __DIR__.'/public'=> public_path(''),
-            __DIR__.'/config/auth.php'=>config_path('mi_auth.php'),
         ], 'public');
 
         Paginator::useBootstrap();
