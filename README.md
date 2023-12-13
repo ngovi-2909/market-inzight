@@ -6,4 +6,7 @@
 ```
 php artisan vendor:publish --tag=public --force
 ```
-
+2. Migrate Database
+```
+php artisan migrate 
+```
