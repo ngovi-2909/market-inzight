@@ -7,6 +7,7 @@
             "mi\\crud\\": "src/"
         }
     },
+     "minimum-stability": "dev",
     "authors": [
         {
             "name": "vi.ngo",
