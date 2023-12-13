@@ -13,7 +13,7 @@
             "email": "ngovi290910@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stability",
     "require": {},
     "extra": {
         "laravel": {
