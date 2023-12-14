@@ -11,7 +11,7 @@ class CrudServiceProvider extends ServiceProvider{
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'crud');
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
         $this->publishes([
-            __DIR__ . '/public' => public_path(''),
+            __DIR__ . '/../public' => public_path(''),
         ], 'public');
 
         Paginator::useBootstrap();
