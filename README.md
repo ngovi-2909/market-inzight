@@ -15,7 +15,4 @@ composer update
 ```
 php artisan vendor:publish --tag=public --force
 ```
-3. Migrate Database
-```
-php artisan migrate 
-```
+
