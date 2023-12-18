@@ -71,6 +71,22 @@
 
 @endsection
 
+@if($errors->has('email'))
+    <!-- Delete Users Modal -->
+    <div class="modal fade show " id="showError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false" style="display:block;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content border border-warning">
+                <div class="modal-body bg-warning">
+                    <p>{{$errors->first('email')}}. Please try again!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="window.location.reload();">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endif
 @section('emails')
     <script>
         function emailValidate(id) {

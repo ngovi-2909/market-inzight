@@ -41,8 +41,8 @@ class EmailRepository implements EmailRepositoryInterface{
     {
         // TODO: Implement update() method.
         $email = $this->find($id);
+        $email->fill($request->validated( ));
         $email->setIsActiveAttribute($request->get('is_active'));
-        $email->fill($request->validated());
         $email->save();
     }
 

@@ -3,6 +3,7 @@
 namespace mi\crud\Requests\Email;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class EditRequest extends FormRequest
 {
@@ -25,7 +26,11 @@ class EditRequest extends FormRequest
     {
         return [
             'password'=>'min:3|max:255',
-            'email' => 'regex:/^.+@.+$/i|max:255',
+            'email' => [
+                'regex:/^.+@.+$/i',
+                'max:255',
+                Rule::unique('emails')->ignore($this->route('email'))
+            ],
             'is_active'=>'nullable',
             'expired_time'=>'nullable',
             'created_by'=>'nullable'
