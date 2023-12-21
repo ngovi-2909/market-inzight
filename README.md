@@ -24,7 +24,7 @@ composer update
 php artisan vendor:publish --tag=public --force
 ```
 
-5. Create users, emails, proxies tables.
+5. Create users, emails, proxies tables. It will meet error when you have users table so delete it if needed
 ```
 php artisan migrate:refresh
 ```
