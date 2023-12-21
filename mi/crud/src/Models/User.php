@@ -58,7 +58,7 @@ class User extends Authenticatable
     }
     public function convertTrueFalse($value):string
     {
-        return $value==1 ? 'True':'False';
+        return $value==1 ? 'Yes':'No';
     }
 
 }

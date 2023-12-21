@@ -52,7 +52,9 @@ class EmailController extends Controller
         try {
             return $this->emailRepository->export();
         }catch (\ErrorException $ex){
-            return back()->withErrors('Something went wrong, check your file');
+            return back()->withErrors('Something went wrong, please try again');
+        }catch (\Exception $ex){
+            return back()->withErrors('Something went wrong, please try again');
         }
     }
 

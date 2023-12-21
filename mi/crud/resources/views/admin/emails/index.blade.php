@@ -29,6 +29,14 @@
 
 
             <br>
+            @if($errors->any())
+                @foreach ($errors->all() as $error)
+                    <div>
+                        <span class="alert alert-danger">{{ $error }}</span>
+                    </div>
+                @endforeach
+            @endif
+            <br>
             <h3 class="card-title">Emails IP Management</h3>
             <div class="table-responsive">
                 <table class="table table-hover" id="emails-table">
@@ -45,7 +53,8 @@
                         <th>Created By</th>
                         <th>Created At</th>
                         <th>Updated At</th>
-                        <th>Edit</th>
+                        <th>Action</th>
+{{--                        <th>Delete</th>--}}
                     </tr>
                     </thead>
                     <tbody>
@@ -136,13 +145,13 @@
 {{--            ],--}}
 {{--            ajax: '{!!! route('emails.api') !!}',--}}
 {{--            columnDefs: [--}}
-{{--                {className: "not-export", "targets": [8]}--}}
+{{--                {className: "not-export", "targets": [8, 9]}--}}
 {{--            ],--}}
 {{--            columns: [--}}
 {{--                {data: 'id', name: 'id'},--}}
 {{--                {data: 'email', name: 'email', orderable: false},--}}
 {{--                {data: 'status', name: 'status', orderable: false},--}}
-{{--                {data: 'blocked_place', name: 'blocked_place', orderable: false},--}}
+{{--                {data: 'blocked_in', name: 'blocked_in', orderable: false},--}}
 {{--                {data: 'expired_time', name: 'expired_time', orderable: false},--}}
 {{--                {data: 'created_by', name: 'created_by', orderable: false},--}}
 {{--                {data: 'created_at', name: 'created_at', orderable: false},--}}
@@ -154,6 +163,21 @@
 {{--                    searchable: false,--}}
 {{--                    render: function(data, type, row, meta){--}}
 {{--                        return `<a href="${data}" type="button" class="btn btn-primary text-white">Edit</a>`--}}
+{{--                    }--}}
+{{--                },--}}
+{{--                {--}}
+{{--                    data: 'delete',--}}
+{{--                    targets: 9,--}}
+{{--                    orderable: false,--}}
+{{--                    searchable: false,--}}
+{{--                    render: function(data, type, row, meta){--}}
+{{--                        return `<form class="forms-sample" action="${data}" method="POST">--}}
+{{--                                @csrf--}}
+{{--                                @method('DELETE')--}}
+{{--                                <div class="modal-footer">--}}
+{{--                                    <button type="Submit" class="btn btn-danger text-white">Delete</button>--}}
+{{--                                </div>--}}
+{{--                                </form>`--}}
 {{--                    }--}}
 {{--                }--}}
 {{--            ]--}}

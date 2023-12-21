@@ -3,10 +3,11 @@
 namespace mi\crud\Exports;
 
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use mi\crud\Models\Email;
 
-class ExportEmail implements FromCollection, WithHeadings
+class ExportEmail implements FromCollection, WithHeadings, WithColumnWidths
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -27,6 +28,24 @@ class ExportEmail implements FromCollection, WithHeadings
     public function headings(): array
     {
         // TODO: Implement headings() method.
-        return ['email', "password", "status", "blocked_in", "expired_time"];
+        return [
+            'email',
+            "password",
+            "status",
+            "blocked_in",
+            "expired_time"
+        ];
+    }
+
+    public function columnWidths(): array
+    {
+        // TODO: Implement columnWidths() method.
+        return [
+            'A'=>35,
+            "B"=>20,
+            "C"=>20,
+            "D"=>20,
+            "E"=>20
+        ];
     }
 }

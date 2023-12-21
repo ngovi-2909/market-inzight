@@ -35,6 +35,8 @@ class ProxyController extends Controller
             return $this->proxyRepository->export();
         }catch (\ErrorException $ex){
             return back()->withErrors('Something went wrong, please try again');
+        }catch (\Exception $ex){
+            return back()->withErrors('Something went wrong, please try again');
         }
 
     }

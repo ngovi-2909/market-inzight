@@ -24,6 +24,14 @@
 {{--            </a>--}}
 
             <br>
+            @if($errors->any())
+                @foreach ($errors->all() as $error)
+                    <div>
+                        <span class="alert alert-danger">{{ $error }}</span>
+                    </div>
+                @endforeach
+            @endif
+            <br>
             <h3 class="card-title">Proxies IP Management</h3>
             <div class="table-responsive">
                 <table class="table table-hover">
