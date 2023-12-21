@@ -25,7 +25,7 @@ class UserRepository implements UserRepositoryInterface{
         $user->save();
     }
 
-    public function update(EditRequest $request,$id): void
+    public function update(EditRequest $request, $id): void
     {
         // TODO: Implement edit() method.
         $user = $this->find($id);

@@ -1,19 +1,36 @@
 <?php
 namespace mi\crud\Repositories;
 
+use Maatwebsite\Excel\Facades\Excel;
 use mi\crud\Contracts\Repositories\ProxyRepositoryInterface;
+use mi\crud\Exports\ExportProxy;
+use mi\crud\Imports\ImportProxy;
 use mi\crud\Models\Proxy;
 use mi\crud\Requests\Proxy\EditRequest;
 use mi\crud\Requests\Proxy\StoreRequest;
 
 class ProxyRepository implements ProxyRepositoryInterface{
 
+    protected $options = ['shoppe', 'lazada', 'tiki'];
+    protected $status = ['public', 'pending', 'in-active'];
+
+    public function getOptions(){
+        return $this->options;
+    }
+    public function getStatus(){
+        return $this->status;
+    }
+    public function export(){
+        return Excel::download(new ExportProxy(), 'proxies_ip.xlsx');
+    }
     public function all()
     {
         // TODO: Implement all() method.
         return Proxy::paginate(15);
     }
-
+    public function importProxy($request){
+        Excel::import(new ImportProxy(), $request->file('file')->store('files'));
+    }
     public function find($id)
     {
         // TODO: Implement find() method.
@@ -32,7 +49,6 @@ class ProxyRepository implements ProxyRepositoryInterface{
         // TODO: Implement store() method.
         $proxy = new Proxy();
         $proxy->created_by = $id;
-        $proxy->setIsActiveAttribute($request->get('is_active'));
         $proxy->fill($request->validated());
         $proxy->save();
     }
@@ -41,7 +57,6 @@ class ProxyRepository implements ProxyRepositoryInterface{
     {
         // TODO: Implement update() method.
         $proxy = $this->find($id);
-        $proxy->setIsActiveAttribute($request->get('is_active'));
         $proxy->fill($request->validated());
         $proxy->save();
     }
@@ -50,5 +65,12 @@ class ProxyRepository implements ProxyRepositoryInterface{
     {
         // TODO: Implement findProxyByUser() method.
         return Proxy::where('created_by', $id)->paginate(15);
+    }
+
+    public function deleteAll($request)
+    {
+        // TODO: Implement deleteAll() method.
+        $ids = $request->ids;
+        Proxy::whereIn('id',$ids)->delete();
     }
 }

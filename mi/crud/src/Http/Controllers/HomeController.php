@@ -20,7 +20,14 @@ class HomeController extends Controller
     }
     public function index()
     {
-        return view('crud::layouts.master');
+        if(Auth::check()){
+            if(auth()->user()->is_active){
+                return view('crud::layouts.master');
+            }else{
+                return redirect(route('login'))->with('error', 'Please contact admin to active your account');
+            }
+        }
+        return view('crud::authentication.login');
     }
     public function getLogin(){
         return view('crud::authentication.login');

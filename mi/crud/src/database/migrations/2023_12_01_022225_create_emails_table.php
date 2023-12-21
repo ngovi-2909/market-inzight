@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('email')->unique();
             $table->string('password');
-            $table->boolean('is_active')->nullable();
+            $table->string('status')->nullable();
+            $table->string('blocked_in')->nullable();
             $table->timestamp('expired_time')->nullable();
             $table->timestamps();
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');

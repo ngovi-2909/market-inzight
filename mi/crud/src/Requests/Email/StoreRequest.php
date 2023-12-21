@@ -26,7 +26,8 @@ class StoreRequest extends FormRequest
         return [
             'password'=>'min:3|max:255|required',
             'email' => 'regex:/^.+@.+$/i|max:255|unique:emails',
-            'is_active'=>'nullable',
+            'blocked_in'=>'nullable',
+            'status'=>'nullable',
             'expired_time'=>'nullable',
             'created_by'=>'nullable'
         ];

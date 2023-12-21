@@ -26,7 +26,10 @@ class EditRequest extends FormRequest
         return [
             'port'=>'required',
             'host'=>'required',
-            'is_active'=>'nullable',
+            'username'=>'nullable',
+            'password'=>'nullable',
+            'status'=>'nullable',
+            'blocked_in' => 'nullable',
             'created_by'=>'nullable',
         ];
     }

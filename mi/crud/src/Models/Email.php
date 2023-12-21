@@ -13,21 +13,15 @@ class Email extends Model
     protected $fillable = [
         'email',
         'password',
-        'is_active',
+        'blocked_in',
+        'status',
         'expired_time',
         'created_by'
     ];
-    public function setIsActiveAttribute($value): void
-    {
-        $this->attributes['is_active'] = ($value==1) ? 1 : 0;
-    }
-    public function convertTrueFalse($value):string
-    {
-        return $value==1 ? 'True':'False';
-    }
     public function getExpiredTimeAttribute($value): string
     {
         return ($value != null)?(new Carbon($value))->format('Y-m-d'):"";
     }
+
 
 }

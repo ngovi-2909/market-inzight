@@ -24,10 +24,7 @@ class EditRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|min:3|max:50',
-            'last_name' => 'required|min:3|max:50',
             'password'=>'min:3|max:255|required',
-            'phone' => 'min:10|max:13',
             'is_super_user'=>'nullable',
             'is_active'=>'nullable',
         ];

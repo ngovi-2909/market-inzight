@@ -1,65 +1,111 @@
 {{--Emails Index--}}
 @php use mi\crud\Repositories\UserRepository; @endphp
 @extends('crud::layouts.master')
+{{--@push('css')--}}
+{{--    <link href="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-1.13.8/b-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/rg-1.4.1/sc-2.3.0/sb-1.6.0/sl-1.7.0/datatables.min.css" rel="stylesheet">--}}
+{{--@endpush--}}
 @section('content')
-    @include('crud::admin.emails.actions.add-emails')
     <div class="card">
         <div class="card-body">
-            <button class="btn btn-primary text-white me-0" style="float: right" data-toggle="modal"
-                    data-target="#addEmailModal">
-                Add Email
-            </button>
+            <div class="row" style="float:right;">
+                <select style="width: min-content" class="form-select" id="actions" name="actions"
+                    onchange="location = this.value;"
+                >
+                    <option value="{{route('emails.index')}}">Choose actions</option>
+                    <option value="{{route('emails.create')}}">Add email</option>
+                    <option value="{{route('emails.importEmail')}}">Import email</option>
+                    <option value="{{route('emails.export')}}">Export email</option>
+                    <option value="#" id="deleteAll">Delete selected</option>
+                </select>
+            </div>
+
+
+{{--            <a href="{{route('emails.importEmail')}}" class="btn btn-success btn-rounded btn-fw text-white me-0" style="float: right">--}}
+{{--                Import--}}
+{{--            </a>--}}
+{{--            <a href="{{route('emails.create')}}" class="btn btn-primary btn-rounded btn-fw text-white me-0" style="float: right">--}}
+{{--                Add Email--}}
+{{--            </a>--}}
+
+
             <br>
-            <h3 class="card-title">Emails Management</h3>
+            <h3 class="card-title">Emails IP Management</h3>
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table class="table table-hover" id="emails-table">
                     <thead>
                     <tr>
+                        <th>
+                            <input type="checkbox" id="select-all">
+                        </th>
                         <th>#</th>
                         <th>Email</th>
-                        <th>Is Active</th>
+                        <th>Status</th>
+                        <th>Blocked In</th>
                         <th>Expired Time</th>
                         <th>Created By</th>
                         <th>Created At</th>
                         <th>Updated At</th>
-                        <th>Action</th>
+                        <th>Edit</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($datas as $data)
-                        <tr>
-                            @if($data->is_super_user)
+                        <tr id="email_id_{{$data->id}}">
+                            <td>
+                                <input type="checkbox" name="ids" value="{{$data->id}}">
+                            </td>
+                            @if(auth()->user()->is_super_user)
                                 <td>{{$data->id}}</td>
                             @else
-                                <td>{{$loop->index+1}}</td>
+                                <td>{{ $loop->iteration + (($datas->currentPage() - 1) * $datas->perPage()) }}</td>
                             @endif
                             <td>{{$data->email}}</td>
-                            @if($data->is_active)
-                                <td><label
-                                            class="badge badge-success">{{$data->convertTrueFalse($data->is_active) }}</label>
+
+                            <td>
+                                @if(!empty($data->status))
+                                    <label
+                                        @if(strtolower($data->status) == 'public')
+                                            class="badge badge-success"
+                                        @elseif(strtolower($data->status) == 'pending')
+                                            class="badge badge-warning"
+                                        @else
+                                            class="badge badge-danger"
+                                        @endif
+                                    >{{$data->status }}</label>
+                                @else
+                                    <label class="badge badge-primary">
+                                        none
+                                    </label>
+                                @endif
+
+                            </td>
+                            <td>
+                                @if(!empty($data->blocked_in) && ($data->blocked_in != 'None'))
+                                    <label class="badge badge-info">
+                                        {{$data->blocked_in}}
+                                    </label>
+                                @else
+                                    <label class="badge badge-primary">
+                                       none
+                                    </label>
+                                @endif
                                 </td>
-                            @else
-                                <td><label
-                                            class="badge badge-danger">{{$data->convertTrueFalse($data->is_active) }}</label>
-                                </td>
-                            @endif
                             <td>{{$data->expired_time}}</td>
                             <td>{{UserRepository::getUserMailByID($data->created_by)}}</td>
                             <td>{{$data->created_at}}</td>
                             <td>{{$data->updated_at}}</td>
                             <td>
-                                <button type="button" data-toggle="modal" data-target="#edit{{$data->id}}"
-                                        class="btn btn-primary text-white">Edit
-                                </button>
+                                <a href="{{route('emails.edit', ['email'=>$data->id])}}" type="button" class="btn btn-primary text-white">Edit</a>
                                 <button type="button" data-toggle="modal" data-target="#delete{{$data->id}}"
                                         class="btn btn-danger text-white">Delete
                                 </button>
-                                @include('crud::admin.emails.actions.edit-emails')
                                 @include('crud::admin.emails.actions.delete-emails')
                             </td>
+
                         </tr>
 
                     @endforeach
+
 
                     </tbody>
                 </table>
@@ -68,41 +114,92 @@
 
         </div>
     </div>
-
 @endsection
+{{--@push('js')--}}
+{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>--}}
+{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>--}}
+{{--    <script src="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-1.13.8/b-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fc-4.3.0/fh-3.4.0/r-2.5.0/rg-1.4.1/sc-2.3.0/sb-1.6.0/sl-1.7.0/datatables.min.js"></script>--}}
 
-@if($errors->has('email'))
-    <!-- Delete Users Modal -->
-    <div class="modal fade show " id="showError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false" style="display:block;">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content border border-warning">
-                <div class="modal-body bg-warning">
-                    <p>{{$errors->first('email')}}. Please try again!</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="window.location.reload();">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+{{--    <script>--}}
+{{--        $('#emails-table').DataTable({--}}
+{{--            dom: 'Bfrtip',--}}
+{{--            processing: true,--}}
+{{--            serverSide: true,--}}
+{{--            select: true,--}}
+{{--            buttons: [--}}
+{{--                {--}}
+{{--                    extend: 'pdf',--}}
+{{--                    exportOptions: {--}}
+{{--                        columns: ':visible :not(.not-export)'--}}
+{{--                    }--}}
+{{--                }--}}
+{{--            ],--}}
+{{--            ajax: '{!!! route('emails.api') !!}',--}}
+{{--            columnDefs: [--}}
+{{--                {className: "not-export", "targets": [8]}--}}
+{{--            ],--}}
+{{--            columns: [--}}
+{{--                {data: 'id', name: 'id'},--}}
+{{--                {data: 'email', name: 'email', orderable: false},--}}
+{{--                {data: 'status', name: 'status', orderable: false},--}}
+{{--                {data: 'blocked_place', name: 'blocked_place', orderable: false},--}}
+{{--                {data: 'expired_time', name: 'expired_time', orderable: false},--}}
+{{--                {data: 'created_by', name: 'created_by', orderable: false},--}}
+{{--                {data: 'created_at', name: 'created_at', orderable: false},--}}
+{{--                {data: 'updated_at', name: 'updated_at', orderable: false},--}}
+{{--                {--}}
+{{--                    data:'edit',--}}
+{{--                    targets: 8,--}}
+{{--                    orderable: false,--}}
+{{--                    searchable: false,--}}
+{{--                    render: function(data, type, row, meta){--}}
+{{--                        return `<a href="${data}" type="button" class="btn btn-primary text-white">Edit</a>`--}}
+{{--                    }--}}
+{{--                }--}}
+{{--            ]--}}
+{{--        });--}}
+{{--    </script>--}}
 
-@endif
-@section('emails')
-    <script>
-        function emailValidate(id) {
-            if (!Number.isInteger(id)) {
-                id = "";
+{{--@endpush--}}
+
+@section('select-all')
+<script>
+    $(function(e){
+
+        $('#select-all').click(function event(){
+            $(':checkbox').prop('checked', this.checked);
+        });
+
+        $('#actions').click(function (e){
+            var value = $('#actions').find(":selected").val();
+            if(value === '#'){
+                e.preventDefault();
+                var all_ids = [];
+
+                $('input:checkbox[name=ids]:checked').each(function(){
+                    all_ids.push($(this).val());
+                });
+
+                $.ajax({
+                    url:"{{route('emails.deleteAll')}}",
+                    type: "DELETE",
+                    data:{
+                        ids: all_ids,
+                        _token: '{{csrf_token()}}',
+                    },
+                    success:function (response){
+                        $.each(all_ids, function(key,val){
+                            $('#select-all').prop('checked', '');
+                            $('#email_id_'+val).remove();
+                            // $('.table').load(location.href + " .table");
+                            location.reload();
+                        })
+                    }
+                });
             }
-            const password = document.getElementById("password_" + id);
-            const password_message = document.getElementById('password_message_' + id);
+        });
 
-            if (password.value.length < 3) {
-                password_message.innerHTML = "The password must at least 3 character";
-                return false;
-            } else {
-                password_message.innerHTML = "";
-                return true;
-            }
-        }
-    </script>
+    });
+
+</script>
 @endsection

@@ -16,7 +16,10 @@ class CrudServiceProvider extends ServiceProvider{
 
         Paginator::useBootstrap();
         config([
-            'auth.providers.users.model'=> \mi\crud\Models\User::class
+            'auth.providers.users.model'=> \mi\crud\Models\User::class,
+            'app.providers'=>\Maatwebsite\Excel\ExcelServiceProvider::class,
+            'app.aliases.Excel'=>\Maatwebsite\Excel\ExcelServiceProvider::class,
+            'excel.imports.ignore_empty'=> true,
         ]);
 
     }

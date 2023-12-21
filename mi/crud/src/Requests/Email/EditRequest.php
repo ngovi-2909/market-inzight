@@ -31,7 +31,8 @@ class EditRequest extends FormRequest
                 'max:255',
                 Rule::unique('emails')->ignore($this->route('email'))
             ],
-            'is_active'=>'nullable',
+            'blocked_in'=>'nullable',
+            'status'=>'nullable',
             'expired_time'=>'nullable',
             'created_by'=>'nullable'
         ];

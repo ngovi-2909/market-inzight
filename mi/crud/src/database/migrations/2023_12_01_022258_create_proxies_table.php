@@ -18,7 +18,10 @@ return new class extends Migration
             $table->id();
             $table->string('host');
             $table->integer('port');
-            $table->boolean('is_active')->nullable();
+            $table->string('username')->nullable();
+            $table->string('password')->nullable();
+            $table->string('blocked_in')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
         });

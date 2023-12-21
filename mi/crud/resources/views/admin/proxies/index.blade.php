@@ -2,23 +2,42 @@
 @php use mi\crud\Repositories\UserRepository; @endphp
 @extends('crud::layouts.master')
 @section('content')
-    @include('crud::admin.proxies.actions.add-proxies')
     <div class="card">
         <div class="card-body">
-            <button class="btn btn-primary text-white me-0" style="float: right" data-toggle="modal"
-                    data-target="#addProxyModal">
-                Add Proxies
-            </button>
+            <div class="row" style="float:right;">
+                <select style="width: min-content" class="form-select" id="actions" name="actions"
+                        onchange="location = this.value;"
+                >
+                    <option value="{{route('proxies.index')}}">Choose actions</option>
+                    <option value="{{route('proxies.create')}}">Add proxy</option>
+                    <option value="{{route('proxies.importProxy')}}">Import proxy</option>
+                    <option value="{{route('proxies.export')}}">Export proxy</option>
+                    <option value="#" id="deleteAll">Delete selected</option>
+                </select>
+            </div>
+
+{{--            <a href="{{route('proxies.importProxy')}}" class="btn btn-success btn-rounded btn-fw text-white me-0" style="float: right">--}}
+{{--                Import--}}
+{{--            </a>--}}
+{{--            <a href="{{route('proxies.create')}}" class="btn btn-primary btn-rounded btn-fw text-white me-0" style="float: right">--}}
+{{--                Add Proxies--}}
+{{--            </a>--}}
+
             <br>
-            <h3 class="card-title">Proxies Management</h3>
+            <h3 class="card-title">Proxies IP Management</h3>
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
                     <tr>
+                        <th>
+                            <input type="checkbox" id="select-all">
+                        </th>
                         <th>#</th>
                         <th>Host</th>
                         <th>Port</th>
-                        <th>Is Active</th>
+                        <th>Username</th>
+                        <th>Status</th>
+                        <th>Blocked In</th>
                         <th>Created By</th>
                         <th>Created At</th>
                         <th>Updated At</th>
@@ -27,35 +46,61 @@
                     </thead>
                     <tbody>
                     @foreach($datas as $data)
-                        <tr>
-                            @if($data->is_super_user)
+                        <tr id="proxy_id_{{$data->id}}">
+                            <td>
+                                <input type="checkbox" name="ids" value="{{$data->id}}">
+                            </td>
+                            @if(auth()->user()->is_super_user)
                                 <td>{{$data->id}}</td>
                             @else
-                                <td>{{$loop->index+1}}</td>
+                                <td>{{ $loop->iteration + (($datas->currentPage() - 1) * $datas->perPage()) }}</td>
                             @endif
 
                             <td>{{$data->host}}</td>
                             <td>{{$data->port}}</td>
-                            @if($data->is_active)
-                                <td><label
-                                            class="badge badge-success">{{$data->convertTrueFalse($data->is_active) }}</label>
-                                </td>
-                            @else
-                                <td><label
-                                            class="badge badge-danger">{{$data->convertTrueFalse($data->is_active) }}</label>
-                                </td>
-                            @endif
+                            <td>{{$data->username}}</td>
+
+                            <td>
+                                @if(!empty($data->status))
+                                    <label
+                                        @if(strtolower( $data->status) ==  'public')
+                                            class="badge badge-success"
+                                        @elseif((strtolower($data->status) == 'pending'))
+                                            class="badge badge-warning"
+                                        @else
+                                            class="badge badge-danger"
+                                        @endif
+                                    >{{$data->status}}</label>
+                                @else
+                                    <label class="badge badge-primary">
+                                        none
+                                    </label>
+                                @endif
+
+                            </td>
+
+                            <td>
+                                @if(!empty($data->blocked_in))
+                                    <label class="badge badge-info">
+                                        {{$data->blocked_in}}
+                                    </label>
+                                @else
+                                    <label class="badge badge-primary">
+                                        none
+                                    </label>
+                                @endif
+                            </td>
+
                             <td>{{UserRepository::getUserMailByID($data->created_by)}}</td>
                             <td>{{$data->created_at}}</td>
                             <td>{{$data->updated_at}}</td>
                             <td>
-                                <button type="button" data-toggle="modal" data-target="#edit{{$data->id}}"
+                                <a href="{{route('proxies.edit', ['proxy'=>$data->id])}}" type="button"
                                         class="btn btn-primary text-white">Edit
-                                </button>
+                                </a>
                                 <button type="button" data-toggle="modal" data-target="#delete{{$data->id}}"
                                         class="btn btn-danger text-white">Delete
                                 </button>
-                                @include('crud::admin.proxies.actions.edit-proxies')
                                 @include('crud::admin.proxies.actions.delete-proxies')
                             </td>
                         </tr>
@@ -70,39 +115,44 @@
 
 @endsection
 
-@section('proxies')
+@section('select-all')
     <script>
-        function clearMessage(host, port) {
-            host.innerHTML = "";
-            port.innerHTML = "";
-        }
+        $(function(e){
 
-        function proxyValidate(id) {
-            if (!Number.isInteger(id)) {
-                id = "";
-            }
-            const host = document.getElementById("host_" + id);
-            const port = document.getElementById("port_" + id);
+            $('#select-all').click(function event(){
+                $(':checkbox').prop('checked', this.checked);
+            });
 
-            const host_message = document.getElementById("host_message_" + id);
-            const port_message = document.getElementById("port_message_" + id);
-            if (host.value.length <= 0) {
-                clearMessage(host_message, port_message);
-                host_message.innerHTML = "Host is required";
-                return false;
-            } else if (port.value < 0 || port.value > 64738) {
-                clearMessage(host_message, port_message);
-                port_message.innerHTML = "Port in range from 0 to 64738";
-                return false;
-            } else if (port.value.length <= 0) {
-                clearMessage(host_message, port_message);
-                port_message.innerHTML = "Port is required";
-                return false;
-            } else {
-                clearMessage(host_message, port_message);
-                return true;
-            }
-        }
+            $('#actions').click(function (e){
+                var value = $('#actions').find(":selected").val();
+                if(value === '#'){
+                    e.preventDefault();
+                    var all_ids = [];
+
+                    $('input:checkbox[name=ids]:checked').each(function(){
+                        all_ids.push($(this).val());
+                    });
+
+                    $.ajax({
+                        url:"{{route('proxies.deleteAll')}}",
+                        type: "DELETE",
+                        data:{
+                            ids: all_ids,
+                            _token: '{{csrf_token()}}',
+                        },
+                        success:function (response){
+                            $.each(all_ids, function(key,val){
+                                $('#select-all').prop('checked', '');
+                                $('#proxy_id_'+val).remove();
+                                // $('.table').load(location.href + " .table");
+                                location.reload();
+                            })
+                        }
+                    });
+                }
+            });
+
+        });
+
     </script>
 @endsection
-

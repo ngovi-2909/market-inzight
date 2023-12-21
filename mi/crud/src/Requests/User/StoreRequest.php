@@ -24,11 +24,12 @@ class StoreRequest extends FormRequest
     public function rules():array
     {
         return [
-            'first_name' => 'required|min:3|max:50',
-            'last_name' => 'required|min:3|max:50',
-            'email' => 'email|unique:users',
+            'email' => [
+                'unique:users',
+                'max:255',
+                'regex:/^.+@.+$/i',
+            ],
             'password' => 'min:3|required',
-            'phone' => 'min:10|max:13',
             'is_super_user'=>'nullable',
             'is_active'=>'nullable',
         ];
