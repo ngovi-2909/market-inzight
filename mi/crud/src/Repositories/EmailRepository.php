@@ -11,7 +11,7 @@ use mi\crud\Requests\Email\EditRequest;
 
 class EmailRepository implements EmailRepositoryInterface{
 
-    protected $options = ['shoppe', 'lazada', 'tiki'];
+    protected $options = ['shoppe', 'lazada', 'tiktok'];
     protected $status = ['public', 'pending', 'in-active'];
 
     public function getOptions(){

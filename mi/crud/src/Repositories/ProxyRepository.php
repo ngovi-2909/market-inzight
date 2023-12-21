@@ -11,7 +11,7 @@ use mi\crud\Requests\Proxy\StoreRequest;
 
 class ProxyRepository implements ProxyRepositoryInterface{
 
-    protected $options = ['shoppe', 'lazada', 'tiki'];
+    protected $options = ['shoppe', 'lazada', 'tiktok'];
     protected $status = ['public', 'pending', 'in-active'];
 
     public function getOptions(){

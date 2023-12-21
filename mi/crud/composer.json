@@ -14,26 +14,11 @@
         }
     ],
     "minimum-stability": "dev",
-    
     "extra": {
         "laravel": {
             "providers": [
                 "mi\\crud\\CrudServiceProvider"
             ]
         }
-    },
-    "scripts": {
-        "build:dev": [
-            "@composer require maatwebsite/excel 2.1.x-dev"
-        ],
-        "post-install-cmd": [
-            "@php artisan vendor:publish --tag=public --force",
-            "@php artisan vendor:publish --provider=\"Maatwebsite\\Excel\\ExcelServiceProvider\" --tag=config"
-
-        ],
-        "post-update-cmd": [
-            "@php artisan vendor:publish --tag=public --force",
-            "@php artisan vendor:publish --provider=\"Maatwebsite\\Excel\\ExcelServiceProvider\" --tag=config"
-        ]
     }
 }

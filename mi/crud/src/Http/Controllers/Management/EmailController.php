@@ -7,6 +7,7 @@ use Maatwebsite\Excel\Exceptions\LaravelExcelException;
 use Maatwebsite\Excel\Facades\Excel;
 use mi\crud\Http\Controllers\Controller;
 use mi\crud\Imports\ImportEmail;
+use mi\crud\Repositories\UserRepository;
 use mi\crud\Requests\Email\EditRequest;
 use mi\crud\Requests\Email\StoreRequest;
 use mi\crud\Models\Email;
@@ -32,6 +33,9 @@ class EmailController extends Controller
 //        if ($request->ajax()) {
 //            $data = Email::select('*');
 //            return Datatables::of($data)
+//                ->editColumn('created_by', function($object){
+//                    return UserRepository::getUserMailByID($object->created_by);
+//                })
 //                ->addIndexColumn()
 //                ->addColumn('edit', function($row){
 //                    return route('emails.edit', $row);

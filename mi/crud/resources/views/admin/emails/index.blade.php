@@ -54,6 +54,7 @@
                         <th>Created At</th>
                         <th>Updated At</th>
                         <th>Action</th>
+{{--                        <th>Edit</th>--}}
 {{--                        <th>Delete</th>--}}
                     </tr>
                     </thead>
@@ -124,6 +125,7 @@
         </div>
     </div>
 @endsection
+
 {{--@push('js')--}}
 {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>--}}
 {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>--}}
