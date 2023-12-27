@@ -45,6 +45,8 @@ class User extends Authenticatable
     protected $casts = [
         'is_super_user'=>'boolean',
         'is_active'=>'boolean',
+        'created_at' =>'datetime: Y-m-d H:00:00',
+        'updated_at' =>'datetime: Y-m-d H:00:00'
     ];
 
 

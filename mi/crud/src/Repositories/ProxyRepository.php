@@ -3,11 +3,11 @@ namespace mi\crud\Repositories;
 
 use Maatwebsite\Excel\Facades\Excel;
 use mi\crud\Contracts\Repositories\ProxyRepositoryInterface;
-use mi\crud\Exports\ExportProxy;
 use mi\crud\Imports\ImportProxy;
 use mi\crud\Models\Proxy;
 use mi\crud\Requests\Proxy\EditRequest;
 use mi\crud\Requests\Proxy\StoreRequest;
+use Yajra\DataTables\DataTables;
 
 class ProxyRepository implements ProxyRepositoryInterface{
 
@@ -20,13 +20,10 @@ class ProxyRepository implements ProxyRepositoryInterface{
     public function getStatus(){
         return $this->status;
     }
-    public function export(){
-        return Excel::download(new ExportProxy(), 'proxies_ip.xlsx');
-    }
     public function all()
     {
         // TODO: Implement all() method.
-        return Proxy::paginate(15);
+        return Proxy::all();
     }
     public function importProxy($request){
         Excel::import(new ImportProxy(), $request->file('file')->store('files'));
@@ -34,7 +31,7 @@ class ProxyRepository implements ProxyRepositoryInterface{
     public function find($id)
     {
         // TODO: Implement find() method.
-        $proxy = $this->all();
+        $proxy = Proxy::all();
         return $proxy->find($id);
     }
 
@@ -64,7 +61,7 @@ class ProxyRepository implements ProxyRepositoryInterface{
     public function findProxyByUser($id)
     {
         // TODO: Implement findProxyByUser() method.
-        return Proxy::where('created_by', $id)->paginate(15);
+        return Proxy::where('created_by', $id);
     }
 
     public function deleteAll($request)
@@ -72,5 +69,9 @@ class ProxyRepository implements ProxyRepositoryInterface{
         // TODO: Implement deleteAll() method.
         $ids = $request->ids;
         Proxy::whereIn('id',$ids)->delete();
+    }
+
+    public function dataTable(){
+        return DataTables::of(Proxy::query())->make(true);
     }
 }

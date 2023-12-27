@@ -3,10 +3,10 @@ namespace mi\crud\Repositories;
 
 use Maatwebsite\Excel\Facades\Excel;
 use mi\crud\Contracts\Repositories\EmailRepositoryInterface;
-use mi\crud\Exports\ExportEmail;
 use mi\crud\Imports\ImportEmail;
 use mi\crud\Models\Email;
 use mi\crud\Requests\Email\EditRequest;
+use Yajra\DataTables\DataTables;
 
 
 class EmailRepository implements EmailRepositoryInterface{
@@ -23,7 +23,7 @@ class EmailRepository implements EmailRepositoryInterface{
     public function all()
     {
         // TODO: Implement all() method.
-        return Email::paginate(15);
+        return Email::all();
     }
 
     public function find($id)
@@ -52,14 +52,14 @@ class EmailRepository implements EmailRepositoryInterface{
     {
         // TODO: Implement update() method.
         $email = $this->find($id);
-        $email->fill($request->validated( ));
+        $email->fill($request->validated());
         $email->save();
     }
 
     public function findByUserId($id)
     {
         // TODO: Implement findByUserId() method.
-        return Email::where('created_by',$id)->paginate(15);
+        return Email::where('created_by',$id);
     }
 
     public function importEmail($request)
@@ -75,7 +75,8 @@ class EmailRepository implements EmailRepositoryInterface{
         Email::whereIn('id',$ids)->delete();
     }
 
-    public function export(){
-        return Excel::download(new ExportEmail(), 'emails_ip.xlsx');
+    public function dataTable(){
+        return DataTables::of(Email::query())->make(true);
     }
+
 }

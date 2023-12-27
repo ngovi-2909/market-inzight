@@ -8,6 +8,7 @@ use mi\crud\Http\Controllers\Controller;
 use mi\crud\Models\User;
 use mi\crud\Requests\User\EditRequest;
 use mi\crud\Requests\User\StoreRequest;
+use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
 {
@@ -18,13 +19,34 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(){
+    public function index(Request $request){
         $data = $this->userRepository->all();
-        return view('crud::admin.users.index', [
-            'datas'=>$data,
-        ]);
-    }
 
+        if($request->ajax()){
+            return Datatables::of($data)
+                ->editColumn('is_super_user', function(User $user){
+                    return $user->convertTrueFalse($user->is_super_user);
+                })->editColumn('is_active', function(User $user){
+                    return $user->convertTrueFalse($user->is_active);
+                })
+                ->addIndexColumn()
+                ->addColumn('action', function(User $user){
+                    $actionBtn = '<a href="'.route('users.edit', $user->id). '"type="button" class="btn btn-primary text-white">Edit</a>
+                    <form class="forms-sample" action="'.route('users.destroy', $user->id) . '" method="POST">
+                        '.csrf_field().'
+                        '.method_field("DELETE").'
+                        <button type="Submit" class="btn btn-danger text-white">Delete</button>
+                    </form>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('crud::admin.users.index');
+    }
+    public function api(){
+        return $this->userRepository->dataTable();
+    }
     public function edit($id){
         $data = $this->userRepository->find($id);
         return view('crud::admin.users.actions.edit-users', [

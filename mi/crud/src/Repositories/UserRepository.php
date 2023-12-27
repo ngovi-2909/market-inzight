@@ -5,13 +5,14 @@ use mi\crud\Contracts\Repositories\UserRepositoryInterface;
 use mi\crud\Models\User;
 use mi\crud\Requests\User\EditRequest;
 use mi\crud\Requests\User\StoreRequest;
+use Yajra\DataTables\DataTables;
 
 class UserRepository implements UserRepositoryInterface{
 
     public function all()
     {
         // TODO: Implement all() method.
-        return User::paginate(15);
+        return User::all();
     }
 
     public function store(StoreRequest $request): void
@@ -55,5 +56,8 @@ class UserRepository implements UserRepositoryInterface{
         $user = User::all();
         $user = $user->find($id);
         return $user->email;
+    }
+    public function dataTable(){
+        return DataTables::of(User::query())->make(true);
     }
 }

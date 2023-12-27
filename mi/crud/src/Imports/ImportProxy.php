@@ -16,8 +16,8 @@ class ImportProxy implements ToModel,WithValidation, WithHeadingRow
             'port'=>$row['port'],
             'username'=>$row['username'],
             'password'=>$row['password'],
-            'status'=>$row['status'],
-            'blocked_in'=>$row['blocked_in'],
+            'status'=>strtolower($row['status']),
+            'blocked_in'=>strtolower($row['blocked_in']),
             'created_by'=>auth()->user()->id,
         ]);
     }

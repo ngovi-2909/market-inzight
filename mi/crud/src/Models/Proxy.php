@@ -18,4 +18,9 @@ class Proxy extends Model
     'created_by',
     ];
 
+    protected $casts = [
+        'created_at' =>'datetime: Y-m-d H:00:00',
+        'updated_at' =>'datetime: Y-m-d H:00:00'
+    ];
+
 }

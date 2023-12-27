@@ -3,16 +3,12 @@
 namespace mi\crud\Http\Controllers\Management;
 
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Exceptions\LaravelExcelException;
-use Maatwebsite\Excel\Facades\Excel;
 use mi\crud\Http\Controllers\Controller;
-use mi\crud\Imports\ImportEmail;
 use mi\crud\Repositories\UserRepository;
 use mi\crud\Requests\Email\EditRequest;
 use mi\crud\Requests\Email\StoreRequest;
 use mi\crud\Models\Email;
 use mi\crud\Repositories\EmailRepository;
-use Mockery\Exception;
 use Yajra\DataTables\DataTables;
 
 
@@ -25,41 +21,38 @@ class EmailController extends Controller
         $this->middleware('auth');
     }
     public function index(Request $request){
-        if(!auth()->user()->is_super_user){
-            $data = $this->emailRepository->findByUserId(auth()->user()->id);
-        }else{
-            $data = $this->emailRepository->all();
+
+        if ($request->ajax()) {
+            if(!auth()->user()->is_super_user){
+                $data = $this->emailRepository->findByUserId(auth()->user()->id);
+            }else{
+                $data = $this->emailRepository->all();
+            }
+            return Datatables::of($data)
+                ->editColumn('created_by', function($object){
+                    return UserRepository::getUserMailByID($object->created_by);
+                })
+                ->addIndexColumn()
+                ->addColumn('checkbox', function(Email $email){
+                    return '<input type="checkbox" name="ids" value="'.$email->id.'">';
+                })
+                ->addColumn('action', function(Email $email){
+                    $actionBtn = '<a href="'.route('emails.edit', $email->id). '"type="button" class="btn btn-primary text-white">Edit</a>
+                    <form class="forms-sample" action="'.route('emails.destroy', $email->id) . '" method="POST">
+                        '.csrf_field().'
+                        '.method_field("DELETE").'
+                        <button type="Submit" class="btn btn-danger text-white">Delete</button>
+                    </form>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action', 'checkbox'])
+                ->make(true);
         }
-//        if ($request->ajax()) {
-//            $data = Email::select('*');
-//            return Datatables::of($data)
-//                ->editColumn('created_by', function($object){
-//                    return UserRepository::getUserMailByID($object->created_by);
-//                })
-//                ->addIndexColumn()
-//                ->addColumn('edit', function($row){
-//                    return route('emails.edit', $row);
-//                })
-//                ->rawColumns(['action'])
-//                ->make(true);
-//        }
-//        return view('crud::admin.emails.index');
-        return view('crud::admin.emails.index', [
-            'datas'=>$data,
-        ]);
+        return view('crud::admin.emails.index');
     }
 
     public function api(){
-        return DataTables::of(Email::query())->make(true);
-    }
-    public function export(){
-        try {
-            return $this->emailRepository->export();
-        }catch (\ErrorException $ex){
-            return back()->withErrors('Something went wrong, please try again');
-        }catch (\Exception $ex){
-            return back()->withErrors('Something went wrong, please try again');
-        }
+        return $this->emailRepository->dataTable();
     }
 
     public function importEmail(){

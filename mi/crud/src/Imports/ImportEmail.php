@@ -18,8 +18,8 @@ class ImportEmail implements ToModel,WithValidation, WithHeadingRow
         return new Email([
             'email'=>$row['email'],
             'password'=>$row['password'],
-            'status'=>$row['status'],
-            'blocked_in'=>$row['blocked_in'],
+            'status'=> strtolower($row['status']),
+            'blocked_in'=>strtolower($row['blocked_in']),
             'expired_time'=> Carbon::parse(Date::excelToDateTimeObject($row['expired_time']))->format('Y-m-d'),
             'created_by'=>auth()->user()->id,
         ]);

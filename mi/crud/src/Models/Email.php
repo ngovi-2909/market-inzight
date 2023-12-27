@@ -18,6 +18,10 @@ class Email extends Model
         'expired_time',
         'created_by'
     ];
+    protected $casts = [
+        'created_at' =>'datetime: Y-m-d H:00:00',
+        'updated_at' =>'datetime: Y-m-d H:00:00'
+    ];
     public function getExpiredTimeAttribute($value): string
     {
         return ($value != null)?(new Carbon($value))->format('Y-m-d'):"";

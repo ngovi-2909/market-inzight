@@ -9,17 +9,9 @@
     <link rel="stylesheet" href="{{asset('css/feather.css')}}">
     <link rel="stylesheet" href="{{asset('css/materialdesignicons.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/themify-icons.css')}}">
-    <link rel="stylesheet" href="{{asset('css/typicons.css')}}">
-    <link rel="stylesheet" href="{{asset('css/simple-line-icons.css')}}">
-    <link rel="stylesheet" href="{{asset('css/vendor.bundle.base.css')}}">
-
-    <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="{{asset('css/dataTables.bootstrap4.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('css/select.dataTables.min.css')}}">
 
     <!-- inject:css -->
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
-    <link rel="shortcut icon" href="{{asset('images/favicon.png')}}"/>
     @stack('css')
 </head>
 <body class="with-welcome-text">
@@ -29,9 +21,6 @@
     @include('crud::layouts.partials.header')
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
-        <!-- settings panel -->
-            @include('crud::layouts.partials.settings-panel')
-
 
         <!-- sidebar -->
             @include('crud::layouts.partials.sidebar')
@@ -72,9 +61,6 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 @stack('js')
-@yield('select-all')
-
-
 </body>
 
 </html>
