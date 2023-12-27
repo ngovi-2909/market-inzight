@@ -29,7 +29,7 @@ class StoreRequest extends FormRequest
                 'max:255',
                 'regex:/^.+@.+$/i',
             ],
-            'password' => 'min:3|required',
+            'password' => 'min:3|max:255|required',
             'is_super_user'=>'nullable',
             'is_active'=>'nullable',
         ];

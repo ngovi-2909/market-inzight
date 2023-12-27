@@ -25,9 +25,9 @@ class StoreRequest extends FormRequest
     {
         return [
             'port'=>'required|min:0|max:64738',
-            'host'=>'required',
-            'username'=>'nullable',
-            'password'=>'nullable',
+            'host'=>'required|max:255',
+            'username'=>'nullable|max:255',
+            'password'=>'nullable|max:255',
             'status'=>'nullable',
             'blocked_in' => 'nullable',
             'created_by'=>'nullable',
