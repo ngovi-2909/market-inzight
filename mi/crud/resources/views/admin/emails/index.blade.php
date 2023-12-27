@@ -52,20 +52,6 @@
                 </table>
             </div>
 
-
-{{--            <div class="modal" tabindex="-1" role="dialog" id="show_message">--}}
-{{--                <div class="modal-dialog" role="document">--}}
-{{--                    <div class="modal-content">--}}
-{{--                        <div class="modal-body">--}}
-{{--                            <p>You have successfully deleted data</p>--}}
-{{--                        </div>--}}
-{{--                        <div class="modal-footer">--}}
-{{--                            <button type="button" class="btn btn-success text-white" data-dismiss="modal">Ok</button>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-
         </div>
     </div>
 @endsection
